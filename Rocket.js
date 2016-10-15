@@ -18,6 +18,7 @@ ga.particles.Rocket = function( x, y, speed ) {
     this.speed = 2;
     this.firewEngine = null;
     this.userColor = "";
+    this.fwColIndex = 0;
 };
 
 ga.particles.Rocket.prototype = {
@@ -33,7 +34,7 @@ ga.particles.Rocket.prototype = {
 
         if (this.currentTime - dt > this.actualDeathTime) {
             this.deathTime = 0;
-            this.firewEngine.spawn( 0 | (400 + Math.random() * 300), this.x ,this.y , 5+ 10*Math.random());
+            this.firewEngine.spawn( 0 | (400 + Math.random() * 300), this.x ,this.y , 5+ 10*Math.random(), this.fwColIndex);
         }
  },
    draw: function () {
@@ -48,7 +49,7 @@ ga.particles.Rocket.prototype = {
 		ctx.stroke ();   	
    },
 
-   spawn : function (particleLoopBuffer, firstIndex, count, currentTime, startX, startY, targetX, targetY, firewEngine, color) {
+   spawn : function (particleLoopBuffer, firstIndex, count, currentTime, startX, startY, targetX, targetY, firewEngine, color, fwColIndex) {
 	   var index    = firstIndex            ;
 	   var length   = particleLoopBuffer.length ;
 	   var particle = null                  ;
@@ -63,6 +64,7 @@ ga.particles.Rocket.prototype = {
 
             particle.firewEngine = firewEngine;
             particle.userColor = color;
+            particle.fwColIndex = fwColIndex;
 
             particle.birthTime = currentTime + 1;
             particle.deathTime = particle.birthTime + dist/particle.speed + 200;

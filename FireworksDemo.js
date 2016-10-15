@@ -87,12 +87,12 @@ window.onload = function() {
 	var broadcast = $.connection.broadcast;
 	$.extend(broadcast.client, {
 		fireworkLaunched: function() {
-			 rocketEngine.spawn(1, arguments[0], ScreenCssHeight, arguments[2], arguments[3], firewEngine, arguments[4]);
+			 rocketEngine.spawn(1, arguments[0], ScreenCssHeight, arguments[2], arguments[3], firewEngine, arguments[4], arguments[5]);
 			 console.log("Fw launched!" + arguments);
 		}
 	});
 
-	$.connection.hub.url = "http://localhost:38578/signalr/";
+	$.connection.hub.url = "http://firework.ml/signalr/";
 	$.connection.hub.logging = true;
 	$.connection.hub.start().then(function () {console.log("Connected");}).fail(function() { console.log("Failed");});
 

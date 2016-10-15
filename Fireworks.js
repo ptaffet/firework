@@ -66,7 +66,7 @@ ga.particles.Fireworks.prototype = {
 
    // spawn the particles centered on CenterX, CenterY, with disp as dispertion.
    // particles are spawn in all directions, and have birth/death/fade time related to fireworksLifeTime.
-   spawn : function (particleLoopBuffer, firstIndex, cnt, currentTime, centerX, centerY, disp) {
+   spawn : function (particleLoopBuffer, firstIndex, cnt, currentTime, centerX, centerY, disp, baseColorIndex) {
 	   var index    = firstIndex            ;
 	   var length   = particleLoopBuffer.length ;
 	   var particle = null                  ;
@@ -75,10 +75,7 @@ ga.particles.Fireworks.prototype = {
     
        var maxSpeedNorm = this.maxSpeedNorm ;
        var fireworksLifeTime = this.fireworksLifeTime ;
-       // we compute the base color index for this burst :
-       // we take the last index, and shift it 
-       var baseColorIndex = 0 | numberOfCachedColors * ( ((this.previousBaseColor/ numberOfCachedColors ) + 0.2 +  0.2*Math.random() ) % 1 ) * numberOfCachedColors   ;
-       this.previousBaseColor = baseColorIndex;
+
        var colorVariance = 0 |  0.1 *numberOfCachedColors * ( 0.3 + 0.7 * Math.random() )   ;
        
 	   while (cnt--) {	
