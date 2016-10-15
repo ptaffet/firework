@@ -54,7 +54,7 @@ window.onload = function() {
 		}
 		if (e.button == 0) {
 			var x = e.clientX, y = e.clientY;
-			$.connection.broadcast.server.shootFirework(startX, ScreenCssHeight, x, y, userColor);
+			$.connection.broadcast.server.shootFirework(startX * 1.0/ScreenCssWidth, 1.0, x* 1.0/ScreenCssWidth, y* 1.0/ScreenCssHeight, userColor);
 			//rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
 			//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
 		}
@@ -87,7 +87,7 @@ window.onload = function() {
 	var broadcast = $.connection.broadcast;
 	$.extend(broadcast.client, {
 		fireworkLaunched: function() {
-			 rocketEngine.spawn(1, arguments[0], ScreenCssHeight, arguments[2], arguments[3], firewEngine, arguments[4], arguments[5]);
+			 rocketEngine.spawn(1, 0|(ScreenCssWidth * arguments[0]), ScreenCssHeight, 0|(ScreenCssWidth*arguments[2]), 0|(ScreenCssHeight * arguments[3]), firewEngine, arguments[4], arguments[5]);
 			 console.log("Fw launched!" + arguments);
 		}
 	});
