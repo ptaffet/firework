@@ -13,10 +13,11 @@ window.onload = function() {
 	var ScreenCssWidth  = starCanvas.width   ;    
 	var ScreenCssHeight = starCanvas.height  ;
 	var ctx  		    = starCanvas.getContext('2d');
+		var ctx2 		= ga.CanvasLib.insertMainCanvas().getContext('2d') ;
 		
 	// **** Setup the particle engine																					           
 	var firewEngine = new ga.JSparkle(ga.particles.Fireworks, fireParticlesCount, ctx, null );
-	var rocketEngine = new ga.JSparkle(ga.particles.Rocket, 50, ctx, null );
+	var rocketEngine = new ga.JSparkle(ga.particles.Rocket, 50, ctx2, null );
 	
 
     // start a run loop with this particle engine
@@ -29,9 +30,14 @@ window.onload = function() {
 							              ctx.globalAlpha = 1;
 							              ctx.lineWidth = 2; 		
 							              myTextDrawer.draw(100,20);						};
+       var rkPreDraw  = function (ctx) {     
+							              ctx.clearRect(0,0, ScreenCssWidth, ScreenCssHeight);
+							              ctx.globalAlpha = .5;
+							              ctx.lineWidth = 2; 		
+								};
 	
 	firewEngine.startRunLoop( fwPreDraw );
-	rocketEngine.startRunLoop();
+	rocketEngine.startRunLoop(rkPreDraw);
 
 	
 	// *** listen to some mouse events  	
