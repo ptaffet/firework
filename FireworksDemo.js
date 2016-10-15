@@ -15,15 +15,9 @@ window.onload = function() {
 	var ctx  		    = starCanvas.getContext('2d');
 		
 	// **** Setup the particle engine																					           
-	var fwSparkle = new ga.JSparkle(ga.particles.Fireworks, fireParticlesCount, ctx, null );
+	var firewEngine = new ga.JSparkle(ga.particles.Fireworks, fireParticlesCount, ctx, null );
+	var rocketEngine = new ga.JSparkle(ga.particles.Rocket, 50, ctx, null );
 	
-	// setup auto-spawn
-	var randCount = function() { return 0 | (190 + Math.random() * 20); };
-	var XPos = function() { return ScreenCssWidth *(0.05 + 0.90*Math.random()) ; };
-	var YPos = function() { return ScreenCssHeight*(0.05 + 0.60*Math.random()) ; };
-		
-		
-    // fwSparkle.autoSpawn ( 100, randCount, XPos, YPos, 5 );
 
     // start a run loop with this particle engine
        //  -- preDraw erase with a low opacity to make a trail effect.
@@ -36,17 +30,19 @@ window.onload = function() {
 							              ctx.lineWidth = 2; 		
 							              myTextDrawer.draw(100,20);						};
 	
-	fwSparkle.startRunLoop( fwPreDraw );
+	firewEngine.startRunLoop( fwPreDraw );
+	rocketEngine.startRunLoop();
 
 	
 	// *** listen to some mouse events  	
 	var displayInfo = false;
 	addEventListener('mousedown', function (e) { if (e.button == 2) { 
                                      					displayInfo = !displayInfo; 
-                                     					fwSparkle.setStatisticsDisplay(displayInfo); } 
+                                     					firewEngine.setStatisticsDisplay(displayInfo); } 
                                      		 	 if (e.button == 0) {
                                          		 	  var x=e.clientX, y=e.clientY;
-                                   fwSparkle.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
+														rocketEngine.spawn(1, 0|(ScreenCssWidth/2), ScreenCssHeight, x, y, firewEngine);
+//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
                                          		  }  }		) ;
                                          		  
     addEventListener('contextmenu', function (e) {  e.preventDefault();     e.stopPropagation(); }, false)                                    				   
@@ -57,10 +53,10 @@ window.onload = function() {
 		    if (e.wheelDeltaY) { delta = e.wheelDeltaY } // FF + ( ? IE ) 	    
 	        if (delta>1) {   if (fireParticlesCount>20000) { return }  
 	        				 fireParticlesCount+=50;
-							 fwSparkle.resize(fireParticlesCount); }
+							 firewEngine.resize(fireParticlesCount); }
 	        if (delta<1) {   if (fireParticlesCount<200)   { return }  
 	        				 fireParticlesCount-=50; 
-							 fwSparkle.resize(fireParticlesCount);     }
+							 firewEngine.resize(fireParticlesCount);     }
 	        console.log(fireParticlesCount);
 	        
 	        e.preventDefault();

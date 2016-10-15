@@ -13,8 +13,10 @@ ga.particles.Rocket = function( x, y, speed ) {
     this.y = 0;
     this.deathTime = 0;
     this.birthTime = 0;
+    this.actualDeathTime = 0;
     this.rocketLength = 12.0;
     this.speed = 2;
+    this.firewEngine = null;
 };
 
 ga.particles.Rocket.prototype = {
@@ -27,6 +29,11 @@ ga.particles.Rocket.prototype = {
    	    this.oldX  = this.x      ;      this.oldY = this.y ;
        // this.vy   +=  this.gravity*dt ;
         this.x    += this.vx*dt  ;      this.y  +=  this.vy*dt;
+
+        if (this.currentTime - dt > this.actualDeathTime) {
+            this.deathTime = 0;
+            this.firewEngine.spawn( 0 | (400 + Math.random() * 300), this.x ,this.y , 5+ 10*Math.random());
+        }
  },
    draw: function () {
    	    var ctx = this.drawContext ;
@@ -40,7 +47,7 @@ ga.particles.Rocket.prototype = {
 		ctx.stroke ();   	
    },
 
-   spawn : function (particleLoopBuffer, firstIndex, cnt, currentTime, startX, startY, targetX, targetY) {
+   spawn : function (particleLoopBuffer, firstIndex, count, currentTime, startX, startY, targetX, targetY, firewEngine) {
 	   var index    = firstIndex            ;
 	   var length   = particleLoopBuffer.length ;
 	   var particle = null                  ;
@@ -53,9 +60,11 @@ ga.particles.Rocket.prototype = {
             particle.vx = (targetX - startX) * particle.speed/dist; 
             particle.vy = (targetY - startY) * particle.speed/dist; 
 
+            particle.firewEngine = firewEngine;
+
             particle.birthTime = currentTime + 1;
-            particle.deathTime = particle.birthTime + dist/particle.speed;
-			
+            particle.deathTime = particle.birthTime + dist/particle.speed + 200;
+            particle.actualDeathTime = particle.birthTime + dist/particle.speed;
 			// _____ end of initialisation _____
 			index++; if (index == length ) index = 0;   // iterate / loop
 		}
