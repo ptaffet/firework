@@ -22,7 +22,7 @@ window.onload = function() {
 
     // start a run loop with this particle engine
        //  -- preDraw erase with a low opacity to make a trail effect.
-       var myTextDrawer = new ga.utility.FadingText(4000, 2000, ' FireWorks Demo of JSpakle.   Mouse wheel up/down to resize buffer. Left click to spawn. Right click to display stats. ', '#FFF', ctx);
+       var myTextDrawer = new ga.utility.FadingText(4000, 2000, 'Left click to launch a firework.', '#FFF', ctx);
 
        var fwPreDraw  = function (ctx) {     ctx.globalAlpha = 0.10;
 							              ctx.fillStyle = '#000';
