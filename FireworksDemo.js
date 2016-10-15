@@ -52,12 +52,12 @@ window.onload = function() {
 			displayInfo = !displayInfo;
 			firewEngine.setStatisticsDisplay(displayInfo);
 		}
-		if (e.button == 0) {
+	});
+	addEventListener('click', function(e) {
 			var x = e.clientX, y = e.clientY;
 			$.connection.broadcast.server.shootFirework(startX * 1.0/ScreenCssWidth, 1.0, x* 1.0/ScreenCssWidth, y* 1.0/ScreenCssHeight, userColor);
 			//rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
 			//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
-		}
 	});
                                          		  
     addEventListener('contextmenu', function (e) {  e.preventDefault();     e.stopPropagation(); }, false)                                    				   
