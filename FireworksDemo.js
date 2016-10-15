@@ -92,8 +92,8 @@ window.onload = function() {
 		}
 	});
 
-	$.connection.hub.url = "http://firework.ml/signalr/";
+	$.connection.hub.url = "http://firework.ml/signalr";
 	$.connection.hub.logging = true;
-	$.connection.hub.start().then(function () {console.log("Connected");}).fail(function() { console.log("Failed");});
+	$.connection.hub.start({withCredentials: false}).then(function () {console.log("Connected");}).fail(function() { console.log("Failed");});
 
 };
