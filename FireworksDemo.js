@@ -24,6 +24,10 @@ window.onload = function() {
        //  -- preDraw erase with a low opacity to make a trail effect.
        var myTextDrawer = new ga.utility.FadingText(4000, 2000, 'Left click to launch a firework.', '#FFF', ctx);
 
+	   // User's info
+		var startX = 0|(Math.random() * ScreenCssWidth);
+		var userColor = window.hsl2rgbHex(Math.random(), .5, .5);
+
        var fwPreDraw  = function (ctx) {     ctx.globalAlpha = 0.10;
 							              ctx.fillStyle = '#000';
 							              ctx.fillRect(0,0, ScreenCssWidth, ScreenCssHeight);
@@ -32,14 +36,16 @@ window.onload = function() {
 							              myTextDrawer.draw(100,20);						};
        var rkPreDraw  = function (ctx) {     
 							              ctx.clearRect(0,0, ScreenCssWidth, ScreenCssHeight);
-							              ctx.globalAlpha = .5;
-							              ctx.lineWidth = 2; 		
+							              ctx.globalAlpha = 1;
+							              ctx.lineWidth = 4; 		
+										  ctx.fillStyle = userColor;
+										  ctx.strokeStyle = userColor;
+							              ctx.fillRect(startX - 10, ScreenCssHeight-20, 20, 20);
 								};
 	
 	firewEngine.startRunLoop( fwPreDraw );
 	rocketEngine.startRunLoop(rkPreDraw);
 
-	
 	// *** listen to some mouse events  	
 	var displayInfo = false;
 	addEventListener('mousedown', function (e) { if (e.button == 2) { 
@@ -47,7 +53,7 @@ window.onload = function() {
                                      					firewEngine.setStatisticsDisplay(displayInfo); } 
                                      		 	 if (e.button == 0) {
                                          		 	  var x=e.clientX, y=e.clientY;
-														rocketEngine.spawn(1, 0|(ScreenCssWidth/2), ScreenCssHeight, x, y, firewEngine);
+														rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
 //                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
                                          		  }  }		) ;
                                          		  

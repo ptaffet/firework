@@ -160,5 +160,5 @@ function hsl2rgb(h,s,l) {
     else return [v, min, v - vsf];
    }
   }
-
+  window.hsl2rgbHex = hsl2rgbHex;
 } ());

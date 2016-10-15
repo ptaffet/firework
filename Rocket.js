@@ -14,7 +14,7 @@ ga.particles.Rocket = function( x, y, speed ) {
     this.deathTime = 0;
     this.birthTime = 0;
     this.actualDeathTime = 0;
-    this.rocketLength = 12.0;
+    this.rocketLength = 20.0;
     this.speed = 2;
     this.firewEngine = null;
 };
@@ -37,7 +37,6 @@ ga.particles.Rocket.prototype = {
  },
    draw: function () {
    	    var ctx = this.drawContext ;
-        ctx.strokeStyle = "#F00";
         ctx.beginPath();
 	    ctx.moveTo ( Math.round(this.x)    , Math.round(this.y)    );
         var distInLastTick = Math.sqrt((this.x-this.oldX) * (this.x - this.oldX) + (this.y - this.oldY) * (this.y - this.oldY));
