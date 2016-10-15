@@ -17,6 +17,7 @@ ga.particles.Rocket = function( x, y, speed ) {
     this.rocketLength = 20.0;
     this.speed = 2;
     this.firewEngine = null;
+    this.userColor = "";
 };
 
 ga.particles.Rocket.prototype = {
@@ -37,6 +38,7 @@ ga.particles.Rocket.prototype = {
  },
    draw: function () {
    	    var ctx = this.drawContext ;
+           ctx.strokeStyle = this.userColor;
         ctx.beginPath();
 	    ctx.moveTo ( Math.round(this.x)    , Math.round(this.y)    );
         var distInLastTick = Math.sqrt((this.x-this.oldX) * (this.x - this.oldX) + (this.y - this.oldY) * (this.y - this.oldY));
@@ -46,7 +48,7 @@ ga.particles.Rocket.prototype = {
 		ctx.stroke ();   	
    },
 
-   spawn : function (particleLoopBuffer, firstIndex, count, currentTime, startX, startY, targetX, targetY, firewEngine) {
+   spawn : function (particleLoopBuffer, firstIndex, count, currentTime, startX, startY, targetX, targetY, firewEngine, color) {
 	   var index    = firstIndex            ;
 	   var length   = particleLoopBuffer.length ;
 	   var particle = null                  ;
@@ -60,6 +62,7 @@ ga.particles.Rocket.prototype = {
             particle.vy = (targetY - startY) * particle.speed/dist; 
 
             particle.firewEngine = firewEngine;
+            particle.userColor = color;
 
             particle.birthTime = currentTime + 1;
             particle.deathTime = particle.birthTime + dist/particle.speed + 200;

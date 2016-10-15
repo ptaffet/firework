@@ -39,7 +39,6 @@ window.onload = function() {
 							              ctx.globalAlpha = 1;
 							              ctx.lineWidth = 4; 		
 										  ctx.fillStyle = userColor;
-										  ctx.strokeStyle = userColor;
 							              ctx.fillRect(startX - 10, ScreenCssHeight-20, 20, 20);
 								};
 	
@@ -48,14 +47,18 @@ window.onload = function() {
 
 	// *** listen to some mouse events  	
 	var displayInfo = false;
-	addEventListener('mousedown', function (e) { if (e.button == 2) { 
-                                     					displayInfo = !displayInfo; 
-                                     					firewEngine.setStatisticsDisplay(displayInfo); } 
-                                     		 	 if (e.button == 0) {
-                                         		 	  var x=e.clientX, y=e.clientY;
-														rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
-//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
-                                         		  }  }		) ;
+	addEventListener('mousedown', function (e) {
+		if (e.button == 2) {
+			displayInfo = !displayInfo;
+			firewEngine.setStatisticsDisplay(displayInfo);
+		}
+		if (e.button == 0) {
+			var x = e.clientX, y = e.clientY;
+			$.connection.broadcast.server.shootFirework(startX, ScreenCssHeight, x, y, userColor);
+			//rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
+			//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
+		}
+	});
                                          		  
     addEventListener('contextmenu', function (e) {  e.preventDefault();     e.stopPropagation(); }, false)                                    				   
                                       					
@@ -78,5 +81,19 @@ window.onload = function() {
 	//var addEventListener = addEventListener ? addEventListener : attachEvent ;        
 	addEventListener('mousewheel',handleMouseWheel, false);    // Chrome + Safari		
 	addEventListener('wheel'     ,handleMouseWheel, false);    // ff 
+
+
+
+	var broadcast = $.connection.broadcast;
+	$.extend(broadcast.client, {
+		fireworkLaunched: function() {
+			 rocketEngine.spawn(1, arguments[0], ScreenCssHeight, arguments[2], arguments[3], firewEngine, arguments[4]);
+			 console.log("Fw launched!" + arguments);
+		}
+	});
+
+	$.connection.hub.url = "http://localhost:38578/signalr/";
+	$.connection.hub.logging = true;
+	$.connection.hub.start().then(function () {console.log("Connected");}).fail(function() { console.log("Failed");});
 
 };
