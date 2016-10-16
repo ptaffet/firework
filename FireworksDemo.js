@@ -13,7 +13,8 @@ window.onload = function () {
 	var ScreenCssWidth = starCanvas.width;
 	var ScreenCssHeight = starCanvas.height;
 	var ctx = starCanvas.getContext('2d');
-	var ctx2 = ga.CanvasLib.insertMainCanvas().getContext('2d');
+	var canvas2 = ga.CanvasLib.insertMainCanvas();
+	var ctx2 = canvas2.getContext('2d');
 
 	// **** Setup the particle engine																					           
 	var firewEngine = new ga.JSparkle(ga.particles.Fireworks, fireParticlesCount, ctx, null);
@@ -57,7 +58,7 @@ window.onload = function () {
 
 	// *** listen to some mouse events  	
 	var displayInfo = false;
-	addEventListener('mousedown', function (e) {
+	/*addEventListener('mousedown', function (e) {
 		if (e.button == 2) {
 			displayInfo = !displayInfo;
 			firewEngine.setStatisticsDisplay(displayInfo);
@@ -69,6 +70,12 @@ window.onload = function () {
 		//rocketEngine.spawn(1, startX, ScreenCssHeight, x, y, firewEngine);
 		//                                   firewEngine.spawn( 0 | (400 + Math.random() * 300), x ,y , 5+ 10*Math.random())      		 	  
 	});
+	*/
+	canvas2.addEventListener("mousedown", function (e) {
+		var x = e.clientX, y = e.clientY;
+		$.connection.broadcast.server.shootFirework(startX * 1.0 / ScreenCssWidth, 1.0, x * 1.0 / ScreenCssWidth, y * 1.0 / ScreenCssHeight, userColor);
+	});
+
 
     addEventListener('contextmenu', function (e) { e.preventDefault(); e.stopPropagation(); }, false)
 
