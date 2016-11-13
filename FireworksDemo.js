@@ -21,6 +21,8 @@ window.onload = function () {
 	var rocketEngine = new ga.JSparkle(ga.particles.Rocket, 50, ctx2, null);
 
 	var users = {};
+	document.cookie = document.cookie | 0;
+	$("#score").text("Score: " + document.cookie);
 
     // start a run loop with this particle engine
 	//  -- preDraw erase with a low opacity to make a trail effect.

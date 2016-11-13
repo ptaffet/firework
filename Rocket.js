@@ -35,6 +35,8 @@ ga.particles.Rocket.prototype = {
         if (this.currentTime - dt > this.actualDeathTime) {
             this.deathTime = 0;
             this.firewEngine.spawn( 0 | (400 + Math.random() * 300), this.x ,this.y , 5+ 10*Math.random(), this.fwColIndex);
+			document.cookie = Number(document.cookie)  + 10;
+			$("#score").text("Score: " + document.cookie);
         }
  },
    draw: function () {
