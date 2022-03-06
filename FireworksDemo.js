@@ -118,7 +118,7 @@ window.onload = function () {
 		}
 	});
 
-	$.connection.hub.url = "http://fireworkml.azurewebsites.net/signalr";
+	$.connection.hub.url = "//fireworkml.azurewebsites.net/signalr";
 	//$.connection.hub.url = "http://localhost:38578/signalr"
 	$.connection.hub.logging = true;
 	$.connection.hub.start({ withCredentials: false })
